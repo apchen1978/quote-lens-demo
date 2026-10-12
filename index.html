@@ -13,6 +13,10 @@
   <meta property="og:description" content="Interactive prototype with fictional scenarios: estimated profit, maximum cash gap and break-even cushion side by side." />
   <meta property="og:url" content="https://apchen1978.github.io/quote-lens-demo/" />
   <link rel="icon" href="data:," />
+  <script>
+    /* English visitors: keep the page hidden until the English text is in place (1.5 s safety limit), so no Chinese flashes first */
+    if (/[?&]lang=en(&|$)/.test(location.search)) { document.documentElement.lang = "en"; document.documentElement.className += " wait-en"; setTimeout(function () { document.documentElement.classList.remove("wait-en"); }, 1500); }
+  </script>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>

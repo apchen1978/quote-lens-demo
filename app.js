@@ -569,4 +569,5 @@
   applyStatic();
   buildScenarioButtons();
   buildAll();
+  document.documentElement.classList.remove('wait-en');
 })();

@@ -192,3 +192,4 @@ main { padding-bottom: 120px; }
 
 /* English mode: Latin fonts first, so apostrophes and quotes are not drawn with full-width CJK glyphs */
 html:lang(en) body { font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, "Noto Sans", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+html.wait-en body { visibility: hidden; }

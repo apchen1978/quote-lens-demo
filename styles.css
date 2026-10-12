@@ -189,3 +189,6 @@ main { padding-bottom: 120px; }
 .portfolio-nav .lang button + button { border-left: 1.5px solid var(--ink); }
 .portfolio-nav .lang button[aria-pressed="true"] { background: var(--pine); color: var(--bone); }
 @media (max-width: 520px) { .portfolio-nav .pos { display: none; } }
+
+/* English mode: Latin fonts first, so apostrophes and quotes are not drawn with full-width CJK glyphs */
+html:lang(en) body { font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, "Noto Sans", "PingFang TC", "Microsoft JhengHei", sans-serif; }

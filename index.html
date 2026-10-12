@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>Quote Lens — 賺錢不等於現金夠用 · Paul’s Tradecraft</title>
+  <meta name="description" content="一個互動式商業決策原型，讓你同時看見專案獲利、資金缺口與損益兩平緩衝。虛構情境，結果為模型估算，不是財務建議或已驗證的報價。" />
+  <link rel="canonical" href="https://apchen1978.github.io/quote-lens-demo/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Paul’s Tradecraft" />
+  <meta property="og:title" content="Quote Lens — Profit Is Not Cash" />
+  <meta property="og:description" content="Interactive prototype with fictional scenarios: estimated profit, maximum cash gap and break-even cushion side by side." />
+  <meta property="og:url" content="https://apchen1978.github.io/quote-lens-demo/" />
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip" id="skip" href="#main" data-i18n="skip">跳至內容</a>
+  <nav class="portfolio-nav" aria-label="Portfolio navigation">
+    <a id="nav-back" href="https://paulstradecraft.com/#quote-lens" data-i18n="navBack">← 回到作品集</a>
+    <span class="pos" data-i18n="navPos">互動原型 · 虛構情境</span>
+    <div class="lang" id="seg-lang" role="group" aria-label="語言" data-i18n-aria="langGroup">
+      <button type="button" data-lang="zh" aria-pressed="true">中文</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </nav>
+  <header class="top">
+    <div>
+      <p class="eyebrow" data-i18n="eyebrow">PAUL'S TRADECRAFT · 互動原型</p>
+      <h1>Quote Lens</h1>
+      <p class="sub" data-i18n="sub"></p>
+    </div>
+    <p class="badgebox" role="note"><strong data-i18n="badge"></strong><span data-i18n="badgeNote"></span></p>
+  </header>
+
+  <main id="main">
+    <nav class="controls" aria-label="控制" data-i18n-aria="ctlAria">
+      <div class="seg" role="group" aria-label="情境" id="seg-scn" data-i18n-aria="scnAria"></div>
+      <div class="seg" role="group" aria-label="檢視" id="seg-view" data-i18n-aria="viewAria">
+        <button type="button" data-view="before" aria-pressed="false" data-i18n="viewBefore">Before：靜態報價</button>
+        <button type="button" data-view="after" aria-pressed="true" data-i18n="viewAfter">After：互動</button>
+      </div>
+      <div class="actions">
+        <button type="button" id="undo" class="ghost" disabled data-i18n="undo">復原</button>
+        <button type="button" id="reset" class="ghost" data-i18n="reset">還原預設</button>
+        <button type="button" id="copy" class="ghost" data-i18n="copy">複製連結</button>
+        <span id="status" role="status" aria-live="polite"></span>
+      </div>
+    </nav>
+
+    <section class="scn-head" aria-labelledby="scn-title">
+      <p class="role" id="scn-role"></p>
+      <h2 id="scn-title"></h2>
+      <p class="blurb" id="scn-blurb"></p>
+    </section>
+
+    <section id="view-before" class="card before" hidden aria-labelledby="before-h">
+      <p class="kicker" data-i18n="beforeKicker"></p>
+      <h3 id="before-h" data-i18n="beforeH"></h3>
+      <dl class="static" id="before-list"></dl>
+      <p class="note" id="before-note"></p>
+      <button type="button" class="primary" id="to-after" data-i18n="toAfter"></button>
+    </section>
+
+    <div id="view-after" class="layout">
+      <div class="col-main">
+        <section class="card hero" id="hero" aria-labelledby="hero-h">
+          <div class="hero-grid">
+            <div class="stat" id="stat-profit">
+              <p class="kicker" id="hero-h" data-i18n="heroProfit">預估利潤</p>
+              <div class="hero-row">
+                <strong class="hero-num" id="hero-num">—</strong>
+                <span class="hero-margin" id="hero-margin"></span>
+              </div>
+              <p class="hero-flag" id="hero-flag"></p>
+            </div>
+            <div class="stat" id="stat-gap">
+              <p class="kicker" id="gap-h" data-i18n="gapKicker">最大現金缺口（累計現金最低點）</p>
+              <div class="hero-row">
+                <strong class="hero-num" id="gap-num">—</strong>
+              </div>
+              <p class="gap-day" id="gap-day"></p>
+            </div>
+          </div>
+          <p class="hero-eq" id="hero-eq"></p>
+          <p class="hero-missing" id="hero-missing" hidden></p>
+          <p class="gap-scope" id="gap-scope" data-i18n="gapScope"></p>
+        </section>
+
+        <section class="card ledger" aria-labelledby="ledger-h">
+          <h3 id="ledger-h" data-i18n="ledgerH">錢去了哪裡</h3>
+          <div id="ledger-body"></div>
+          <p class="note" id="fin-note"></p>
+        </section>
+
+        <section class="card risks" aria-labelledby="risks-h">
+          <h3 id="risks-h" data-i18n="risksH">對利潤影響最大的是什麼</h3>
+          <p class="note" id="risks-note" data-i18n="risksNote"></p>
+          <div id="risk-rows"></div>
+          <p class="breakeven" id="breakeven"></p>
+          <p class="note" id="breakeven-note" data-i18n="breakevenNote"></p>
+        </section>
+
+        <section class="card cash" aria-labelledby="cash-h">
+          <h3 id="cash-h" data-i18n="cashH">現金位置：什麼時候要先墊錢</h3>
+          <div id="cash-chart" class="chart"></div>
+          <p class="note" id="cash-note"></p>
+        </section>
+      </div>
+
+      <aside class="col-inputs">
+        <section class="card inputs" aria-labelledby="inputs-h">
+          <h3 id="inputs-h" data-i18n="inputsH">調整假設</h3>
+          <p class="note" data-i18n="inputsNote"></p>
+          <div id="inputs-body"></div>
+        </section>
+      </aside>
+    </div>
+
+    <aside class="card evidence" aria-labelledby="ev-h">
+      <h3 id="ev-h" data-i18n="evH">關於這個原型</h3>
+      <ul id="ev-list"></ul>
+    </aside>
+  </main>
+
+  <div class="dock" id="dock" aria-label="即時利潤" data-i18n-aria="dockAria">
+    <span class="dock-label" data-i18n="dockLabel">利潤</span>
+    <strong id="dock-num">—</strong>
+    <span id="dock-meta"></span>
+  </div>
+
+  <script src="scenarios.js"></script>
+  <script src="model.js"></script>
+  <script src="i18n.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
